@@ -17,12 +17,14 @@ const app =createApp({
       isNew: false,
     }
   },
-  mounted() {
+  mounted() { 
+    //取出 token
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     axios.defaults.headers.common.Authorization = token;
     this.checkAdmin();
   },
   methods: {
+    //登入驗證
     checkAdmin() {
       const url = `${this.apiUrl}/api/user/check`;
       axios.post(url)
@@ -34,6 +36,7 @@ const app =createApp({
           window.location = 'login.html';
         })
     },
+    //取得產品
     getData(page = 1) {
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/products?page=${page}`;
 
@@ -47,6 +50,7 @@ const app =createApp({
           window.location = 'login.html';
         })
     },
+    //彈出視窗
     openModal(isNew, item) {
       if (isNew === 'new') {
         this.tempProduct = {
